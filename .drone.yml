@@ -2,39 +2,39 @@ kind: pipeline
 name: default
 
 steps:
-    - name: build-base
-        image: plugins/docker
-        settings:
-            dockerfile: Dockerfile
-            repo: maxkratz/texlive
-            tags:
-                - base
-            username:
-                from_secret: dockerhub_username
-            password:
-                from_secret: dockerhub_password
-        when:
-            branch:
-                - main
-                - base
+  - name: build-base
+    image: plugins/docker
+    settings:
+        dockerfile: Dockerfile
+        repo: maxkratz/texlive
+        tags:
+            - base
+        username:
+            from_secret: dockerhub_username
+        password:
+            from_secret: dockerhub_password
+    when:
+        branch:
+            - main
+            - base
 
-    - name: build-2021
-        image: plugins/docker
-        settings:
-            dockerfile: 2021/Dockerfile
-            repo: maxkratz/texlive
-            tags:
-                - 2021
-                - latest
-            username:
-                from_secret: dockerhub_username
-            password:
-                from_secret: dockerhub_password
-        when:
-            branch:
-                - main
-                - 2021
-        depends_on: [ build-base ]
+  - name: build-2021
+    image: plugins/docker
+    settings:
+        dockerfile: 2021/Dockerfile
+        repo: maxkratz/texlive
+        tags:
+            - 2021
+            - latest
+        username:
+            from_secret: dockerhub_username
+        password:
+            from_secret: dockerhub_password
+    when:
+        branch:
+            - main
+            - 2021
+    depends_on: [ build-base ]
 
     # - name: build-2020
     #     image: plugins/docker
