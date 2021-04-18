@@ -1,18 +1,24 @@
 kind: pipeline
 name: default
 
+auth: &auth
+    username:
+        from_secret: dockerhub_username
+    password:
+        from_secret: dockerhub_password
+
+repo: &repo
+    repo: maxkratz/texlive
+
 steps:
   - name: build-base
     image: plugins/docker
     settings:
         dockerfile: Dockerfile
-        repo: maxkratz/texlive
+        <<: *repo
         tags:
             - base
-        username:
-            from_secret: dockerhub_username
-        password:
-            from_secret: dockerhub_password
+        <<: *auth
     when:
         branch:
             - main
@@ -22,14 +28,11 @@ steps:
     image: plugins/docker
     settings:
         dockerfile: 2021/Dockerfile
-        repo: maxkratz/texlive
+        <<: *repo
         tags:
             - 2021
             - latest
-        username:
-            from_secret: dockerhub_username
-        password:
-            from_secret: dockerhub_password
+        <<: *auth
     when:
         branch:
             - main
