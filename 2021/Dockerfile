@@ -14,4 +14,5 @@ ENV PATH="/usr/local/texlive/2021/bin/x86_64-linux:$PATH"
 # Update tlmgr + tex-packages
 RUN tlmgr update --self --all --reinstall-forcibly-removed
 
+WORKDIR /data
 CMD ["bash"]
