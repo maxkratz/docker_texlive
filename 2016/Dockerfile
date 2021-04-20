@@ -2,6 +2,12 @@
 FROM maxkratz/texlive:base
 LABEL maintainer="Max Kratz <account@maxkratz.com>"
 
+# Install prerequisites
+RUN apt-get update && apt-get install -yq libfontconfig
+
+# Remove apt lists (for storage efficiency)
+RUN rm -rf /var/lib/apt/lists/*
+
 # Install texlive
 COPY 2016/texlive.profile .
 RUN wget http://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2016/install-tl-unx.tar.gz
