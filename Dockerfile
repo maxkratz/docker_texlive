@@ -11,9 +11,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -q && \
     apt-get upgrade -yq && \
     apt-get install -yq \
-        wget curl git build-essential \
-        sudo lsb-release locales bash-completion \
-        tzdata gettext-base
+        wget build-essential lsb-release locales \
+        bash-completion tzdata gettext-base curl git
 
 # Use en utf8 locales
 RUN locale-gen en_US.UTF-8
