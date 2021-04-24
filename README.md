@@ -43,6 +43,8 @@ Currently, there are the following tags published:
 | 2021   | TeX Live version 2021                               |
 | 2020   | TeX Live version 2020 (from archive)                |
 | 2019   | TeX Live version 2019 (from archive)                |
+| 2018   | TeX Live version 2018 (from archive)                |
+| 2017   | TeX Live version 2017 (from archive)                |
 | 2016   | TeX Live version 2016 (from archive)                |
 
 Please notice, that the *base* tag does not have any TeX packages installed.

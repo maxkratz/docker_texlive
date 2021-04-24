@@ -67,6 +67,34 @@ steps:
             - 2019
     depends_on: [ build-base ]
 
+  - name: build-2018
+    image: plugins/docker
+    settings:
+        dockerfile: 2018/Dockerfile
+        <<: *repo
+        tags:
+            - 2018
+        <<: *auth
+    when:
+        branch:
+            - main
+            - 2018
+    depends_on: [ build-base ]
+
+  - name: build-2017
+    image: plugins/docker
+    settings:
+        dockerfile: 2017/Dockerfile
+        <<: *repo
+        tags:
+            - 2017
+        <<: *auth
+    when:
+        branch:
+            - main
+            - 2017
+    depends_on: [ build-base ]
+
   - name: build-2016
     image: plugins/docker
     settings:
