@@ -2,6 +2,11 @@
 FROM maxkratz/texlive:base
 LABEL maintainer="Max Kratz <account@maxkratz.com>"
 
+# Install dependencies
+RUN apt-get update -q
+RUN apt-get install -yq xzdec
+RUN rm -rf /var/lib/apt/lists/*
+
 # Install texlive
 COPY 2017/texlive.profile .
 RUN wget http://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2017/install-tl-unx.tar.gz
