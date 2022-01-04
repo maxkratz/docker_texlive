@@ -10,8 +10,8 @@ RUN ./install-tl-*/install-tl -profile texlive.profile -repository http://ftp.ma
 
 # Add texlive to path
 ENV PATH="/usr/local/texlive/2018/bin/x86_64-linux:$PATH"
-ENV PATH="/usr/local/texlive/2021/bin/aarch64-linux:$PATH"
-ENV PATH="/usr/local/texlive/2021/bin/armhf-linux:$PATH"
+ENV PATH="/usr/local/texlive/2018/bin/aarch64-linux:$PATH"
+ENV PATH="/usr/local/texlive/2018/bin/armhf-linux:$PATH"
 
 # Update tlmgr + tex-packages
 RUN tlmgr update --self --all --reinstall-forcibly-removed
