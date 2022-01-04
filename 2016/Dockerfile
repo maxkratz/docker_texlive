@@ -3,7 +3,7 @@ FROM maxkratz/texlive:base
 LABEL maintainer="Max Kratz <account@maxkratz.com>"
 
 # Install prerequisites
-RUN apt-get update && apt-get install -yq libfontconfig
+RUN apt-get update && apt-get install -yq libfontconfig xzdec
 
 # Remove apt lists (for storage efficiency)
 RUN rm -rf /var/lib/apt/lists/*
