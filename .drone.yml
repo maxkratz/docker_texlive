@@ -1,6 +1,15 @@
 kind: pipeline
 name: default
 
+#
+# Global definitions
+#
+
+# This CI uses a fork of docker/dind which also provides buildx support.
+.buildimage: &buildimage
+  image: maniator/dind-buildx
+
+# Environment setup.
 .env: &env
   environment:
     USERNAME:
@@ -9,17 +18,21 @@ name: default
       from_secret: dockerhub_password
     REPO: maxkratz/texlive
 
+# Define a temporary volue for communicating with the dind service.
 .dockervolume: &dockervolume
   volumes:
     - name: dockersock
       path: /var/run
 
+# Wait a bit for dind to start
 .sleep: &sleep
-  sleep 5 # wait a bit for Docker to start
+  sleep 5
 
+# Login to dockerhub.
 .login: &login
   docker login -u $USERNAME -p $PASSWORD
 
+# Setup the buildx builder.
 .setup: &setup
   docker run --rm --privileged multiarch/qemu-user-static --reset -p yes && docker buildx create --name builder --driver docker-container --use && docker buildx inspect --bootstrap
 # ^normally, one would use a syntax like this:
@@ -32,9 +45,12 @@ name: default
 #
 # Additionally, this command breaks if some newlines `\` are included.
 
+#
+# Build jobs
+#
 steps:
   - name: build-base
-    image: maniator/dind-buildx
+    <<: *buildimage
     <<: *dockervolume
     <<: *env
     commands:
@@ -43,9 +59,8 @@ steps:
       - *setup
       - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $REPO:base --push .
 
-steps:
   - name: build-2021
-    image: maniator/dind-buildx
+    <<: *buildimage
     <<: *dockervolume
     <<: *env
     commands:
@@ -54,9 +69,8 @@ steps:
       - *setup
       - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t maxkratz/texlive:2021 -t maxkratz/texlive:latest --push . -f ./2021/Dockerfile
 
-steps:
   - name: build-2020
-    image: maniator/dind-buildx
+    <<: *buildimage
     <<: *dockervolume
     <<: *env
     commands:
@@ -65,9 +79,8 @@ steps:
       - *setup
       - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t maxkratz/texlive:2020 --push . -f ./2020/Dockerfile
 
-steps:
   - name: build-2019
-    image: maniator/dind-buildx
+    <<: *buildimage
     <<: *dockervolume
     <<: *env
     commands:
@@ -76,9 +89,8 @@ steps:
       - *setup
       - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t maxkratz/texlive:2019 --push . -f ./2019/Dockerfile
 
-steps:
   - name: build-2018
-    image: maniator/dind-buildx
+    <<: *buildimage
     <<: *dockervolume
     <<: *env
     commands:
@@ -87,9 +99,8 @@ steps:
       - *setup
       - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t maxkratz/texlive:2018 --push . -f ./2018/Dockerfile
 
-steps:
   - name: build-2017
-    image: maniator/dind-buildx
+    <<: *buildimage
     <<: *dockervolume
     <<: *env
     commands:
@@ -98,9 +109,8 @@ steps:
       - *setup
       - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t maxkratz/texlive:2017 --push . -f ./2017/Dockerfile
 
-steps:
   - name: build-2016
-    image: maniator/dind-buildx
+    <<: *buildimage
     <<: *dockervolume
     <<: *env
     commands:
@@ -110,12 +120,16 @@ steps:
       - docker buildx build --platform linux/amd64,linux/arm/v7 -t maxkratz/texlive:2016 --push . -f ./2016/Dockerfile
       # ^arm64 does not work on texlive 2016 -> removed from this build command
 
+#
+# Dind service for building Docker images.
+#
 services:
   - name: docker
     image: docker:dind
     privileged: true
     <<: *dockervolume
 
+# The temporary volume for the dockersocket.
 volumes:
   - name: dockersock
     temp: {}
