@@ -29,20 +29,8 @@ name: default
 # BUT: The YAML parser of drone does not allow it and returns an error:
 # > cannot unmarshal !!seq into string
 # Therefore, the setup block uses && to run all three docker comands as one single string.
-
-#steps:
-#  - name: build-base
-#    image: plugins/docker
-#    settings:
-#        dockerfile: Dockerfile
-#        <<: *repo
-#        tags:
-#            - base
-#        <<: *auth
-#    when:
-#        branch:
-#            - main
-#            - base
+#
+# Additionally, this command breaks if some newlines `\` are included.
 
 steps:
   - name: build-base
@@ -54,6 +42,73 @@ steps:
       - *login
       - *setup
       - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $REPO:base --push .
+
+steps:
+  - name: build-2021
+    image: maniator/dind-buildx
+    <<: *dockervolume
+    <<: *env
+    commands:
+      - *sleep
+      - *login
+      - *setup
+      - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t maxkratz/texlive:2021 -t maxkratz/texlive:latest --push . -f ./2021/Dockerfile
+
+steps:
+  - name: build-2020
+    image: maniator/dind-buildx
+    <<: *dockervolume
+    <<: *env
+    commands:
+      - *sleep
+      - *login
+      - *setup
+      - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t maxkratz/texlive:2020 --push . -f ./2020/Dockerfile
+
+steps:
+  - name: build-2019
+    image: maniator/dind-buildx
+    <<: *dockervolume
+    <<: *env
+    commands:
+      - *sleep
+      - *login
+      - *setup
+      - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t maxkratz/texlive:2019 --push . -f ./2019/Dockerfile
+
+steps:
+  - name: build-2018
+    image: maniator/dind-buildx
+    <<: *dockervolume
+    <<: *env
+    commands:
+      - *sleep
+      - *login
+      - *setup
+      - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t maxkratz/texlive:2018 --push . -f ./2018/Dockerfile
+
+steps:
+  - name: build-2017
+    image: maniator/dind-buildx
+    <<: *dockervolume
+    <<: *env
+    commands:
+      - *sleep
+      - *login
+      - *setup
+      - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t maxkratz/texlive:2017 --push . -f ./2017/Dockerfile
+
+steps:
+  - name: build-2016
+    image: maniator/dind-buildx
+    <<: *dockervolume
+    <<: *env
+    commands:
+      - *sleep
+      - *login
+      - *setup
+      - docker buildx build --platform linux/amd64,linux/arm/v7 -t maxkratz/texlive:2016 --push . -f ./2016/Dockerfile
+      # ^arm64 does not work on texlive 2016 -> removed from this build command
 
 services:
   - name: docker
