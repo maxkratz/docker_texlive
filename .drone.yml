@@ -1,7 +1,7 @@
 kind: pipeline
 name: default
 
-env: &env
+.env: &env
   environment:
     USERNAME:
       from_secret: dockerhub_username
@@ -9,18 +9,18 @@ env: &env
       from_secret: dockerhub_password
     REPO: maxkratz/texlive
 
-dockervolume: &dockervolume
+.dockervolume: &dockervolume
   volumes:
     - name: dockersock
       path: /var/run
 
-sleep: &sleep
+.sleep: &sleep
   - sleep 5 # wait a bit for Docker to start
 
-login: &login
+.login: &login
   - docker login -u $USERNAME -p $PASSWORD
 
-setup: &setup
+.setup: &setup
   - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
   - docker buildx create --name builder --driver docker-container --use
   - docker buildx inspect --bootstrap
@@ -45,9 +45,9 @@ steps:
     <<: *dockervolume
     <<: *env
     commands:
-      <<: *sleep
-      <<: *login
-      <<: *setup
+      - *sleep
+      - *login
+      - *setup
       - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $REPO:base --push .
 
 services:
