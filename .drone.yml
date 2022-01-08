@@ -45,11 +45,48 @@ name: default
 #
 # Additionally, this command breaks if some newlines `\` are included.
 
+# Only build and push images if commit is on the branch `main`.
+.ismain: &ismain
+  when:
+    branch:
+      include:
+        - main
+
+# Only build(-only) images if commit is NOT on the branch `main`.
+.isnotmain: &isnotmain
+  when:
+    branch:
+      exclude:
+        - main
+
 #
 # Build jobs
 #
 steps:
+  # Build base image without pushing it.
   - name: build-base
+    <<: *buildimage
+    <<: *dockervolume
+    <<: *env
+    commands:
+      - *sleep
+      - *setup
+      - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $REPO:base .
+    <<: *isnotmain
+
+  # Build 2021 image without pushing it.
+  - name: build-2021
+    <<: *buildimage
+    <<: *dockervolume
+    <<: *env
+    commands:
+      - *sleep
+      - *setup
+      - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $REPO:2021 . -f ./2021/Dockerfile
+    <<: *isnotmain
+
+  # Build and push base image.
+  - name: build-and-push-base
     <<: *buildimage
     <<: *dockervolume
     <<: *env
@@ -58,8 +95,11 @@ steps:
       - *login
       - *setup
       - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $REPO:base --push .
+    <<: *ismain
 
-  - name: build-2021
+  # All further jops are for building and pushing the individual images.
+
+  - name: build-and-push-2021
     <<: *buildimage
     <<: *dockervolume
     <<: *env
@@ -67,9 +107,10 @@ steps:
       - *sleep
       - *login
       - *setup
-      - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t maxkratz/texlive:2021 -t maxkratz/texlive:latest --push . -f ./2021/Dockerfile
+      - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $REPO:2021 -t $REPO:latest --push . -f ./2021/Dockerfile
+    <<: *ismain
 
-  - name: build-2020
+  - name: build-and-push-2020
     <<: *buildimage
     <<: *dockervolume
     <<: *env
@@ -77,9 +118,10 @@ steps:
       - *sleep
       - *login
       - *setup
-      - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t maxkratz/texlive:2020 --push . -f ./2020/Dockerfile
+      - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $REPO:2020 --push . -f ./2020/Dockerfile
+    <<: *ismain
 
-  - name: build-2019
+  - name: build-and-push-2019
     <<: *buildimage
     <<: *dockervolume
     <<: *env
@@ -87,9 +129,10 @@ steps:
       - *sleep
       - *login
       - *setup
-      - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t maxkratz/texlive:2019 --push . -f ./2019/Dockerfile
+      - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $REPO:2019 --push . -f ./2019/Dockerfile
+    <<: *ismain
 
-  - name: build-2018
+  - name: build-and-push-2018
     <<: *buildimage
     <<: *dockervolume
     <<: *env
@@ -97,9 +140,10 @@ steps:
       - *sleep
       - *login
       - *setup
-      - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t maxkratz/texlive:2018 --push . -f ./2018/Dockerfile
+      - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $REPO:2018 --push . -f ./2018/Dockerfile
+    <<: *ismain
 
-  - name: build-2017
+  - name: build-and-push-2017
     <<: *buildimage
     <<: *dockervolume
     <<: *env
@@ -107,9 +151,10 @@ steps:
       - *sleep
       - *login
       - *setup
-      - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t maxkratz/texlive:2017 --push . -f ./2017/Dockerfile
+      - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $REPO:2017 --push . -f ./2017/Dockerfile
+    <<: *ismain
 
-  - name: build-2016
+  - name: build-and-push-2016
     <<: *buildimage
     <<: *dockervolume
     <<: *env
@@ -117,8 +162,9 @@ steps:
       - *sleep
       - *login
       - *setup
-      - docker buildx build --platform linux/amd64,linux/arm/v7 -t maxkratz/texlive:2016 --push . -f ./2016/Dockerfile
+      - docker buildx build --platform linux/amd64,linux/arm/v7 -t $REPO:2016 --push . -f ./2016/Dockerfile
       # ^arm64 does not work on texlive 2016 -> removed from this build command
+    <<: *ismain
 
 #
 # Dind service for building Docker images.
