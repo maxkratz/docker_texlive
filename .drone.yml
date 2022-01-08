@@ -21,9 +21,7 @@ name: default
   docker login -u $USERNAME -p $PASSWORD
 
 .setup: &setup
-  docker run --rm --privileged multiarch/qemu-user-static --reset -p yes && \
-  docker buildx create --name builder --driver docker-container --use && \
-  docker buildx inspect --bootstrap
+  docker run --rm --privileged multiarch/qemu-user-static --reset -p yes && docker buildx create --name builder --driver docker-container --use && docker buildx inspect --bootstrap
 # ^normally, one would use a syntax like this:
 #.setup: &setup
 #  - docker ..
@@ -54,8 +52,7 @@ steps:
     commands:
       - *sleep
       - *login
-    #   - *setup
-      - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes && docker buildx create --name builder --driver docker-container --use && docker buildx inspect --bootstrap
+      - *setup
       - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $REPO:base --push .
 
 services:
