@@ -54,7 +54,7 @@ steps:
     commands:
       - *sleep
       - *login
-      - *setup
+    #   - *setup
       - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $REPO:base --push .
 
 services:
