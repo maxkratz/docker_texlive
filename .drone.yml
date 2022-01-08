@@ -15,15 +15,22 @@ name: default
       path: /var/run
 
 .sleep: &sleep
-  - sleep 5 # wait a bit for Docker to start
+  sleep 5 # wait a bit for Docker to start
 
 .login: &login
-  - docker login -u $USERNAME -p $PASSWORD
+  docker login -u $USERNAME -p $PASSWORD
 
 .setup: &setup
-  - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-  - docker buildx create --name builder --driver docker-container --use
-  - docker buildx inspect --bootstrap
+  docker run --rm --privileged multiarch/qemu-user-static --reset -p yes && \
+  docker buildx create --name builder --driver docker-container --use && \
+  docker buildx inspect --bootstrap
+# ^normally, one would use a syntax like this:
+#.setup: &setup
+#  - docker ..
+#  - docker ..
+# BUT: The YAML parser of drone does not allow it and returns an error:
+# > cannot unmarshal !!seq into string
+# Therefore, the setup block uses && to run all three docker comands as one single string.
 
 #steps:
 #  - name: build-base
