@@ -1,14 +1,29 @@
 kind: pipeline
 name: default
 
-auth: &auth
-    username:
-        from_secret: dockerhub_username
-    password:
-        from_secret: dockerhub_password
+env: &env
+  environment:
+    USERNAME:
+      from_secret: dockerhub_username
+    PASSWORD:
+      from_secret: dockerhub_password
+    REPO: maxkratz/texlive
 
-repo: &repo
-    repo: maxkratz/texlive
+dockervolume: &dockervolume
+  volumes:
+    - name: dockersock
+      path: /var/run
+
+sleep: &sleep
+  - sleep 5 # wait a bit for Docker to start
+
+login: &login
+  - docker login -u $USERNAME -p $PASSWORD
+
+setup: &setup
+  - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+  - docker buildx create --name builder --driver docker-container --use
+  - docker buildx inspect --bootstrap
 
 #steps:
 #  - name: build-base
@@ -27,23 +42,19 @@ repo: &repo
 steps:
   - name: build-base
     image: maniator/dind-buildx
-    volumes:
-      - name: dockersock
-        path: /var/run
+    <<: *dockervolume
+    <<: *env
     commands:
-      - sleep 5 # wait a bit for Docker to start
-      - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-      - docker buildx create --name builder --driver docker-container --use
-      - docker buildx inspect --bootstrap
-      - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t maxkratz/texlive:base .
+      <<: *sleep
+      <<: *login
+      <<: *setup
+      - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $REPO:base --push .
 
 services:
   - name: docker
     image: docker:dind
     privileged: true
-    volumes:
-      - name: dockersock
-        path: /var/run
+    <<: *dockervolume
 
 volumes:
   - name: dockersock
