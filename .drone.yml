@@ -10,101 +10,37 @@ auth: &auth
 repo: &repo
     repo: maxkratz/texlive
 
+#steps:
+#  - name: build-base
+#    image: plugins/docker
+#    settings:
+#        dockerfile: Dockerfile
+#        <<: *repo
+#        tags:
+#            - base
+#        <<: *auth
+#    when:
+#        branch:
+#            - main
+#            - base
+
 steps:
   - name: build-base
-    image: plugins/docker
-    settings:
-        dockerfile: Dockerfile
-        <<: *repo
-        tags:
-            - base
-        <<: *auth
-    when:
-        branch:
-            - main
-            - base
+    image: docker:dind
+    volumes:
+      - name: dockersock
+        path: /var/run
+    commands:
+      - sleep 5 # wait a bit for Docker to start
+      - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+      - docker buildx create --name builder --driver docker-container --use
+      - docker buildx inspect --bootstrap
+      - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t maxkratz/texlive:base .
 
-  - name: build-2021
-    image: plugins/docker
-    settings:
-        dockerfile: 2021/Dockerfile
-        <<: *repo
-        tags:
-            - 2021
-            - latest
-        <<: *auth
-    when:
-        branch:
-            - main
-            - 2021
-    depends_on: [ build-base ]
-
-  - name: build-2020
-    image: plugins/docker
-    settings:
-        dockerfile: 2020/Dockerfile
-        <<: *repo
-        tags:
-            - 2020
-        <<: *auth
-    when:
-        branch:
-            - main
-            - 2020
-    depends_on: [ build-base ]
-
-  - name: build-2019
-    image: plugins/docker
-    settings:
-        dockerfile: 2019/Dockerfile
-        <<: *repo
-        tags:
-            - 2019
-        <<: *auth
-    when:
-        branch:
-            - main
-            - 2019
-    depends_on: [ build-base ]
-
-  - name: build-2018
-    image: plugins/docker
-    settings:
-        dockerfile: 2018/Dockerfile
-        <<: *repo
-        tags:
-            - 2018
-        <<: *auth
-    when:
-        branch:
-            - main
-            - 2018
-    depends_on: [ build-base ]
-
-  - name: build-2017
-    image: plugins/docker
-    settings:
-        dockerfile: 2017/Dockerfile
-        <<: *repo
-        tags:
-            - 2017
-        <<: *auth
-    when:
-        branch:
-            - main
-            - 2017
-    depends_on: [ build-base ]
-
-  - name: build-2016
-    image: plugins/docker
-    settings:
-        dockerfile: 2016/Dockerfile
-        <<: *repo
-        tags:
-            - 2016
-        <<: *auth
-    when:
-        branch:
-            - main
-            - 2016
-    depends_on: [ build-base ]
+services:
+  - name: docker
+    image: docker:dind
+    privileged: true
+    volumes:
+      - name: dockersock
+        path: /var/run
