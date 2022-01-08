@@ -24,6 +24,6 @@ docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t maxkratz/
 docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t maxkratz/texlive:2019 --push . -f ./2019/Dockerfile
 docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t maxkratz/texlive:2018 --push . -f ./2018/Dockerfile
 docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t maxkratz/texlive:2017 --push . -f ./2017/Dockerfile
-docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t maxkratz/texlive:2016 --push . -f ./2016/Dockerfile
+docker buildx build --platform linux/amd64,linux/arm/v7 -t maxkratz/texlive:2016 --push . -f ./2016/Dockerfile
 
 echo "=> Build and push finished."

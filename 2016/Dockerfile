@@ -16,7 +16,6 @@ RUN ./install-tl-*/install-tl -profile texlive.profile -repository http://ftp.ma
 
 # Add texlive to path
 ENV PATH="/usr/local/texlive/2016/bin/x86_64-linux:$PATH"
-ENV PATH="/usr/local/texlive/2016/bin/aarch64-linux:$PATH"
 ENV PATH="/usr/local/texlive/2016/bin/armhf-linux:$PATH"
 
 # Update tlmgr + tex-packages
