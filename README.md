@@ -1,6 +1,6 @@
 # Docker TeX Live
 
-[![Build Status](https://github.ci.maxkratz.com/api/badges/maxkratz/docker_texlive/status.svg)](https://github.ci.maxkratz.com/maxkratz/docker_texlive)
+[![Build Status](https://github.ci.maxkratz.com/api/badges/maxkratz/docker_texlive/status.svg?ref=refs/heads/main)](https://github.ci.maxkratz.com/maxkratz/docker_texlive)
 
 *Unofficial* [TeX Live](https://www.tug.org/texlive/) Dockerfile for various versions.
 Prebuild images can be found at this [Dockerhub repository](https://hub.docker.com/r/maxkratz/texlive).
