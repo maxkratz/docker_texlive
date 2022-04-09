@@ -5,7 +5,7 @@
 *Unofficial* [TeX Live](https://www.tug.org/texlive/) Dockerfile for various versions.
 Prebuild images can be found at this [Dockerhub repository](https://hub.docker.com/r/maxkratz/texlive).
 
-**Please notice**: TeX Live <= 2020 is frozen forever according to [tuc.org](https://www.tug.org/texlive/).
+**Please notice**: TeX Live <= 2021 is frozen forever according to [tuc.org](https://www.tug.org/texlive/).
 You should only use it, if you need it for a specific project or template which is incompatible with newer versions.
 
 
@@ -40,7 +40,8 @@ Currently, there are the following tags published:
 | ------ | --------------------------------------------------- |
 | base   | Base image with updates and prerequesites installed |
 | latest | Newest (stable) TeX Live version available          |
-| 2021   | TeX Live version 2021                               |
+| 2022   | TeX Live version 2022                               |
+| 2021   | TeX Live version 2021 (from archive)                |
 | 2020   | TeX Live version 2020 (from archive)                |
 | 2019   | TeX Live version 2019 (from archive)                |
 | 2018   | TeX Live version 2018 (from archive)                |
