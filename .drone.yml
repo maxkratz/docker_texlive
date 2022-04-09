@@ -74,15 +74,15 @@ steps:
       - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $REPO:base .
     <<: *isnotmain
 
-  # Build 2021 image without pushing it.
-  - name: build-2021
+  # Build 2022 image without pushing it.
+  - name: build-2022
     <<: *buildimage
     <<: *dockervolume
     <<: *env
     commands:
       - *sleep
       - *setup
-      - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $REPO:2021 . -f ./2021/Dockerfile
+      - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $REPO:2022 . -f ./2022/Dockerfile
     <<: *isnotmain
 
   # Build and push base image.
@@ -99,6 +99,17 @@ steps:
 
   # All further jops are for building and pushing the individual images.
 
+  - name: build-and-push-2022
+    <<: *buildimage
+    <<: *dockervolume
+    <<: *env
+    commands:
+      - *sleep
+      - *login
+      - *setup
+      - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $REPO:2022 -t $REPO:latest --push . -f ./2022/Dockerfile
+    <<: *ismain
+
   - name: build-and-push-2021
     <<: *buildimage
     <<: *dockervolume
@@ -107,7 +118,7 @@ steps:
       - *sleep
       - *login
       - *setup
-      - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $REPO:2021 -t $REPO:latest --push . -f ./2021/Dockerfile
+      - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $REPO:2021 --push . -f ./2021/Dockerfile
     <<: *ismain
 
   - name: build-and-push-2020
