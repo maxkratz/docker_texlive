@@ -20,6 +20,7 @@ ENV PATH="/usr/local/texlive/2017/bin/armhf-linux:$PATH"
 
 # Update tlmgr + tex-packages
 RUN tlmgr update --self --all --reinstall-forcibly-removed
+RUN luaotfload-tool -v -vvv -u
 
 WORKDIR /data
 CMD ["bash"]
