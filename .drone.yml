@@ -84,6 +84,8 @@ steps:
       - *setup
       - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $REPO:2022 . -f ./2022/Dockerfile
     <<: *isnotmain
+    depends_on:
+      - build-base
 
   # Build and push base image.
   - name: build-and-push-base
@@ -109,6 +111,8 @@ steps:
       - *setup
       - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $REPO:2022 -t $REPO:latest --push . -f ./2022/Dockerfile
     <<: *ismain
+    depends_on:
+      - build-and-push-base
 
   - name: build-and-push-2021
     <<: *buildimage
@@ -120,6 +124,8 @@ steps:
       - *setup
       - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $REPO:2021 --push . -f ./2021/Dockerfile
     <<: *ismain
+    depends_on:
+      - build-and-push-base
 
   - name: build-and-push-2020
     <<: *buildimage
@@ -131,6 +137,8 @@ steps:
       - *setup
       - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $REPO:2020 --push . -f ./2020/Dockerfile
     <<: *ismain
+    depends_on:
+      - build-and-push-base
 
   - name: build-and-push-2019
     <<: *buildimage
@@ -142,6 +150,8 @@ steps:
       - *setup
       - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $REPO:2019 --push . -f ./2019/Dockerfile
     <<: *ismain
+    depends_on:
+      - build-and-push-base
 
   - name: build-and-push-2018
     <<: *buildimage
@@ -153,6 +163,8 @@ steps:
       - *setup
       - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $REPO:2018 --push . -f ./2018/Dockerfile
     <<: *ismain
+    depends_on:
+      - build-and-push-base
 
   - name: build-and-push-2017
     <<: *buildimage
@@ -164,6 +176,8 @@ steps:
       - *setup
       - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $REPO:2017 --push . -f ./2017/Dockerfile
     <<: *ismain
+    depends_on:
+      - build-and-push-base
 
   - name: build-and-push-2016
     <<: *buildimage
@@ -176,6 +190,8 @@ steps:
       - docker buildx build --platform linux/amd64,linux/arm/v7 -t $REPO:2016 --push . -f ./2016/Dockerfile
       # ^arm64 does not work on texlive 2016 -> removed from this build command
     <<: *ismain
+    depends_on:
+      - build-and-push-base
 
 #
 # Dind service for building Docker images.
