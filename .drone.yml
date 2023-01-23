@@ -87,6 +87,19 @@ steps:
     depends_on:
       - build-base
 
+  # Build 2022-gradle image without pushing it.
+  - name: build-2022
+    <<: *buildimage
+    <<: *dockervolume
+    <<: *env
+    commands:
+      - *sleep
+      - *setup
+      - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $REPO:2022-gradle . -f ./2022-gradle/Dockerfile
+    <<: *isnotmain
+    depends_on:
+      - build-2022
+
   # Build and push base image.
   - name: build-and-push-base
     <<: *buildimage
@@ -113,6 +126,19 @@ steps:
     <<: *ismain
     depends_on:
       - build-and-push-base
+
+  - name: build-and-push-2022-gradle
+    <<: *buildimage
+    <<: *dockervolume
+    <<: *env
+    commands:
+      - *sleep
+      - *login
+      - *setup
+      - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $REPO:2022-gradle -t $REPO:latest --push . -f ./2022-gradle/Dockerfile
+    <<: *ismain
+    depends_on:
+      - build-and-push-2022
 
   - name: build-and-push-2021
     <<: *buildimage
