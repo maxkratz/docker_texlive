@@ -88,7 +88,7 @@ steps:
       - build-base
 
   # Build 2022-gradle image without pushing it.
-  - name: build-2022
+  - name: build-2022-gradle
     <<: *buildimage
     <<: *dockervolume
     <<: *env
