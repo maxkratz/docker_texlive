@@ -16,10 +16,14 @@ echo "=> Starting builds."
 # base image
 docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t maxkratz/texlive:base --push .
 
-# latest + 2021
-docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t maxkratz/texlive:2021 -t maxkratz/texlive:latest --push . -f ./2021/Dockerfile
+# latest + 2022
+docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t maxkratz/texlive:2022 -t maxkratz/texlive:latest --push . -f ./2022/Dockerfile
+
+# 2022-gradle
+docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t maxkratz/texlive:2022-gradle --push . -f ./2022-gradle/Dockerfile
 
 # legacy images
+docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t maxkratz/texlive:2021 --push . -f ./2021/Dockerfile
 docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t maxkratz/texlive:2020 --push . -f ./2020/Dockerfile
 docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t maxkratz/texlive:2019 --push . -f ./2019/Dockerfile
 docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t maxkratz/texlive:2018 --push . -f ./2018/Dockerfile
