@@ -13,7 +13,7 @@ RUN apt-get update -q && \
     apt-get install -yq \
         wget build-essential lsb-release locales \
         bash-completion tzdata gettext-base curl git \
-        zip
+        zip unzip
 
 # Use en utf8 locales
 RUN locale-gen en_US.UTF-8
