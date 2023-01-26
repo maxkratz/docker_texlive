@@ -8,7 +8,7 @@ RUN apt-get install -yq xzdec
 RUN rm -rf /var/lib/apt/lists/*
 
 # Install texlive
-COPY 2017/texlive.profile .
+COPY texlive.profile .
 RUN wget http://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2017/install-tl-unx.tar.gz
 RUN tar xvzf install-tl-unx.tar.gz
 RUN ./install-tl-*/install-tl -profile texlive.profile -repository http://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2017/tlnet-final/ --no-verify-downloads
