@@ -4,7 +4,7 @@ LABEL maintainer="Max Kratz <account@maxkratz.com>"
 
 # Install texlive
 COPY texlive.profile .
-RUN wget http://ctan.mirror.norbert-ruehl.de/systems/texlive/tlnet/install-tl-unx.tar.gz
+RUN wget http://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2022/install-tl-unx.tar.gz
 RUN tar xvzf install-tl-unx.tar.gz
 RUN ./install-tl-*/install-tl -profile texlive.profile
 
