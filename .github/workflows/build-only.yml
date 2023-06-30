@@ -24,6 +24,12 @@ jobs:
           push: false
           tags: maxkratz/texlive:base
           platforms: linux/amd64,linux/arm64,linux/arm/v7
+          outputs: type=docker,dest=/tmp/base.tar
+      - name: Upload base image as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: base
+          path: /tmp/base.tar
 
   build-image:
     runs-on: [ubuntu-22.04]
@@ -38,6 +44,14 @@ jobs:
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
+      - name: Download base image from artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: base
+          path: /tmp
+      - name: Load base image
+        run: |
+          docker load --input /tmp/base.tar
       - name: Build image
         uses: docker/build-push-action@v3
         with:
@@ -60,6 +74,14 @@ jobs:
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
+      - name: Download base image from artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: base
+          path: /tmp
+      - name: Load base image
+        run: |
+          docker load --input /tmp/base.tar
       - name: Build image
         uses: docker/build-push-action@v3
         with:
