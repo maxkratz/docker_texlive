@@ -58,6 +58,7 @@ jobs:
       - if: matrix.year == '2023'
         name: Push latest
         run: |
+          docker pull maxkratz/texlive:${{ matrix.year }}
           docker tag maxkratz/texlive:${{ matrix.year }} maxkratz/texlive:latest
           docker push maxkratz/texlive:latest
 
