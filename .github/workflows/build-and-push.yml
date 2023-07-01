@@ -35,7 +35,7 @@ jobs:
     needs: [build-and-push-base]
     strategy:
       matrix:
-        year: [2017, 2018, 2019, 2020, 2021, 2022, 2022-gradle, 2023, 2023-gradle]
+        year: [2017, 2018, 2019, 2020, 2021, 2022, 2022-gradle, 2023]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
