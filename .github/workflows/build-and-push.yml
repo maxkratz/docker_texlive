@@ -55,7 +55,7 @@ jobs:
           push: true
           tags: maxkratz/texlive:${{ matrix.year }}
           platforms: linux/amd64,linux/arm64,linux/arm/v7
-      - if: matrix.year == '2022'
+      - if: matrix.year == '2023'
         name: Push latest
         run: |
           docker tag maxkratz/texlive:${{ matrix.year }} maxkratz/texlive:latest
