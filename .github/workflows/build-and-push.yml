@@ -55,6 +55,11 @@ jobs:
           push: true
           tags: maxkratz/texlive:${{ matrix.year }}
           platforms: linux/amd64,linux/arm64,linux/arm/v7
+      - if: matrix.year == '2022'
+        name: Push latest
+        run: |
+          docker tag maxkratz/texlive:${{ matrix.year }} maxkratz/texlive:latest
+          docker push maxkratz/texlive:latest
 
   # 2016 can not be built with arm64 support
   build-and-push-2016-mage:
