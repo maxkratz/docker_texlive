@@ -41,7 +41,7 @@ Currently, there are the following tags published:
 | base        | Base image with updates and prerequesites installed |
 | latest      | Newest (stable) TeX Live version available          |
 | 2023        | TeX Live version 2023                               |
-| 2023        | TeX Live version 2023 + OpenJDK 17 + Gradle         |
+| 2023-gradle | TeX Live version 2023 + OpenJDK 17 + Gradle         |
 | 2022        | TeX Live version 2022                               |
 | 2022-gradle | TeX Live version 2022 + OpenJDK 17 + Gradle         |
 | 2021        | TeX Live version 2021 (from archive)                |
