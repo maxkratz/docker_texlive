@@ -7,6 +7,9 @@ on:
       - '!feature/**'
       - '!hotfix/**'
 
+env:
+  LATEST_TAG: 2023
+
 jobs:
   build-and-push-base:
     runs-on: [ubuntu-22.04]
@@ -48,20 +51,25 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build image
+      - if: matrix.year != '$LATEST_TAG'
+        name: Build image
         uses: docker/build-push-action@v3
         with:
           context: ./${{ matrix.year }}
           push: true
           tags: maxkratz/texlive:${{ matrix.year }}
           platforms: linux/amd64,linux/arm64,linux/arm/v7
-      - if: matrix.year == '2023'
-        name: Push latest
-        run: |
-          docker pull maxkratz/texlive:${{ matrix.year }}
-          docker tag maxkratz/texlive:${{ matrix.year }} maxkratz/texlive:latest
-          docker push maxkratz/texlive:latest
-
+      - if: matrix.year == '$LATEST_TAG'
+        name: Build image
+        uses: docker/build-push-action@v3
+        with:
+          context: ./${{ matrix.year }}
+          push: true
+          tags: |
+            maxkratz/texlive:${{ matrix.year }}
+            maxkratz/texlive:latest
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
+  
   # 2016 can not be built with arm64 support
   build-and-push-2016-mage:
     runs-on: [ubuntu-22.04]
