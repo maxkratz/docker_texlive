@@ -59,15 +59,17 @@ jobs:
       #       maxkratz/texlive:${{ matrix.year }}
       #       maxkratz/texlive:latest
       #     platforms: linux/amd64,linux/arm64,linux/arm/v7
-      - if: matrix.year != "$LATEST_TAG"
+      - if: $matrix.year != '$LATEST_TAG'
         name: Test env 1
         run: |
           echo "First if"
+          echo $matrix.year
           echo $LATEST_TAG
-      - if: matrix.year == "$LATEST_TAG"
+      - if: $matrix.year == '$LATEST_TAG'
         name: Test env 2
         run: |
           echo "Second if"
+          echo $matrix.year
           echo $LATEST_TAG
 
   # # 2016 can not be built with arm64 support
