@@ -37,47 +37,57 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+      # - name: Set up QEMU
+      #   uses: docker/setup-qemu-action@v2
+      # - name: Set up Docker Buildx
+      #   uses: docker/setup-buildx-action@v2
+      # - if: matrix.year != '$LATEST_TAG'
+      #   name: Build image
+      #   uses: docker/build-push-action@v3
+      #   with:
+      #     context: ./${{ matrix.year }}
+      #     push: false
+      #     tags: maxkratz/texlive:${{ matrix.year }}
+      #     platforms: linux/amd64,linux/arm64,linux/arm/v7
+      # - if: matrix.year == '$LATEST_TAG'
+      #   name: Build image
+      #   uses: docker/build-push-action@v3
+      #   with:
+      #     context: ./${{ matrix.year }}
+      #     push: false
+      #     tags: |
+      #       maxkratz/texlive:${{ matrix.year }}
+      #       maxkratz/texlive:latest
+      #     platforms: linux/amd64,linux/arm64,linux/arm/v7
       - if: matrix.year != '$LATEST_TAG'
-        name: Build image
-        uses: docker/build-push-action@v3
-        with:
-          context: ./${{ matrix.year }}
-          push: false
-          tags: maxkratz/texlive:${{ matrix.year }}
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
+        name: Test env 1
+        run: |
+          echo "First if"
+          echo $LATEST_TAG
       - if: matrix.year == '$LATEST_TAG'
-        name: Build image
-        uses: docker/build-push-action@v3
-        with:
-          context: ./${{ matrix.year }}
-          push: false
-          tags: |
-            maxkratz/texlive:${{ matrix.year }}
-            maxkratz/texlive:latest
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
+        name: Test env 2
+        run: |
+          echo "Second if"
+          echo $LATEST_TAG
 
-  # 2016 can not be built with arm64 support
-  build-2016-image:
-    runs-on: [ubuntu-22.04]
-    needs: [build-base]
-    strategy:
-      matrix:
-        year: [2016]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-      - name: Build image
-        uses: docker/build-push-action@v3
-        with:
-          context: ./${{ matrix.year }}
-          push: false
-          tags: maxkratz/texlive:${{ matrix.year }}
-          platforms: linux/amd64,linux/arm/v7
+  # # 2016 can not be built with arm64 support
+  # build-2016-image:
+  #   runs-on: [ubuntu-22.04]
+  #   needs: [build-base]
+  #   strategy:
+  #     matrix:
+  #       year: [2016]
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v3
+  #     - name: Set up QEMU
+  #       uses: docker/setup-qemu-action@v2
+  #     - name: Set up Docker Buildx
+  #       uses: docker/setup-buildx-action@v2
+  #     - name: Build image
+  #       uses: docker/build-push-action@v3
+  #       with:
+  #         context: ./${{ matrix.year }}
+  #         push: false
+  #         tags: maxkratz/texlive:${{ matrix.year }}
+  #         platforms: linux/amd64,linux/arm/v7
