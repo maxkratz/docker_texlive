@@ -36,20 +36,20 @@ docker run --rm -it -v ${PWD}:/data maxkratz/texlive:latest lualatex <yourfile>.
 This Docker image is available in various versions which each represent a *tag*.
 Currently, there are the following tags published:
 
-| Tag         | Description                                         |
-| ----------- | --------------------------------------------------- |
-| base        | Base image with updates and prerequesites installed |
-| latest      | Newest (stable) TeX Live version available          |
-| 2023        | TeX Live version 2023                               |
-| 2023-gradle | TeX Live version 2023 + OpenJDK 17 + Gradle         |
-| 2022        | TeX Live version 2022                               |
-| 2022-gradle | TeX Live version 2022 + OpenJDK 17 + Gradle         |
-| 2021        | TeX Live version 2021 (from archive)                |
-| 2020        | TeX Live version 2020 (from archive)                |
-| 2019        | TeX Live version 2019 (from archive)                |
-| 2018        | TeX Live version 2018 (from archive)                |
-| 2017        | TeX Live version 2017 (from archive)                |
-| 2016        | TeX Live version 2016 (from archive)                |
+| Tag         | Description                                                |
+| ----------- | ---------------------------------------------------------- |
+| base        | Base image with updates and prerequesites installed        |
+| latest      | Newest (stable) TeX Live version available                 |
+| 2023        | TeX Live version 2023                                      |
+| 2023-gradle | TeX Live version 2023 + OpenJDK 17 + Gradle                |
+| 2022        | TeX Live version 2022 (from archive)                       |
+| 2022-gradle | TeX Live version 2022 + OpenJDK 17 + Gradle (from archive) |
+| 2021        | TeX Live version 2021 (from archive)                       |
+| 2020        | TeX Live version 2020 (from archive)                       |
+| 2019        | TeX Live version 2019 (from archive)                       |
+| 2018        | TeX Live version 2018 (from archive)                       |
+| 2017        | TeX Live version 2017 (from archive)                       |
+| 2016        | TeX Live version 2016 (from archive)                       |
 
 Please notice, that the *base* tag does not have any TeX packages installed.
 It is used as a base for the other builds and builds on top of the [ubuntu 22.04 image](https://hub.docker.com/_/ubuntu).
