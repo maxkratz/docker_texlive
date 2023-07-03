@@ -7,9 +7,6 @@ on:
       - 'feature/**'
       - 'hotfix/**'
 
-env:
-  LATEST_TAG: 2023
-
 jobs:
   build-base:
     runs-on: [ubuntu-22.04]
@@ -33,7 +30,7 @@ jobs:
     needs: [build-base]
     strategy:
       matrix:
-        year: [2017, 2018, 2019, 2020, 2021, 2022, 2022-gradle, 2023, 2023-gradle]
+        year: [2017, 2018, 2019, 2020, 2021, 2022, 2022-gradle, 2023-gradle]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -41,16 +38,29 @@ jobs:
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-      - if: matrix.year != '$LATEST_TAG'
-        name: Build image
+      - name: Build image
         uses: docker/build-push-action@v3
         with:
           context: ./${{ matrix.year }}
           push: false
           tags: maxkratz/texlive:${{ matrix.year }}
           platforms: linux/amd64,linux/arm64,linux/arm/v7
-      - if: matrix.year == '$LATEST_TAG'
-        name: Build image
+
+  # latest is an extra build step because of buggy GitHub Actions if conditions
+  build-latest-image:
+    runs-on: [ubuntu-22.04]
+    needs: [build-base]
+    strategy:
+      matrix:
+        year: [2023]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Build latest image
         uses: docker/build-push-action@v3
         with:
           context: ./${{ matrix.year }}
