@@ -2,9 +2,6 @@
 FROM maxkratz/texlive:2023
 LABEL maintainer="Max Kratz <account@maxkratz.com>"
 
-# Config
-ARG GRADLE_VERSION=8.1.1
-
 # Install Python 3.x
 RUN apt-get update -q && \
     apt-get install -yq \
