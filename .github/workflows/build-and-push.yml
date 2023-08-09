@@ -57,7 +57,8 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/arm/v7
 
   build-and-push-image-variants:
-    runs-on: [ubuntu-22.04]
+    # Use a self-hosted runner to circumvent the small storage size of GitHub-hosted runners
+    runs-on: [self-hosted]
     needs: [build-and-push-image]
     strategy:
       matrix:
