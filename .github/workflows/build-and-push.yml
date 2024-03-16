@@ -35,7 +35,34 @@ jobs:
     needs: [build-and-push-base]
     strategy:
       matrix:
-        year: [2017, 2018, 2019, 2020, 2021, 2022, 2023]
+        year: [2017, 2018, 2019, 2020, 2021, 2022]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./${{ matrix.year }}
+          push: true
+          tags: maxkratz/texlive:${{ matrix.year }}
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
+
+  build-and-push-image-2023:
+    # Use a self-hosted runner to circumvent the small storage size of GitHub-hosted runners
+    runs-on: [self-hosted]
+    needs: [build-and-push-base]
+    strategy:
+      matrix:
+        year: [2023]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -58,7 +85,8 @@ jobs:
 
   # latest is an extra build step because of buggy GitHub Actions if conditions
   build-and-push-latest-image:
-    runs-on: [ubuntu-22.04]
+    # Use a self-hosted runner to circumvent the small storage size of GitHub-hosted runners
+    runs-on: [self-hosted]
     needs: [build-and-push-base]
     strategy:
       matrix:
