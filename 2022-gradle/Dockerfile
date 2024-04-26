@@ -1,4 +1,4 @@
-# texlive base image
+# texlive 2022 image
 FROM maxkratz/texlive:2022
 LABEL maintainer="Max Kratz <account@maxkratz.com>"
 
