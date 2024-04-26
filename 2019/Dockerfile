@@ -1,4 +1,4 @@
-# Use ubuntu 20.04
+# texlive base image
 FROM maxkratz/texlive:base
 LABEL maintainer="Max Kratz <account@maxkratz.com>"
 

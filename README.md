@@ -56,7 +56,7 @@ Currently, there are the following tags published:
 | 2016        | TeX Live version 2016 (from archive)                       |
 
 Please notice, that the *base* tag does not have any TeX packages installed.
-It is used as a base for the other builds and builds on top of the [ubuntu 22.04 image](https://hub.docker.com/_/ubuntu).
+It is used as a base for the other builds and builds on top of the [ubuntu 24.04 image](https://hub.docker.com/_/ubuntu).
 
 
 ## Dockerfiles
