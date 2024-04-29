@@ -28,6 +28,7 @@ jobs:
   build-image:
     runs-on: [ubuntu-22.04]
     needs: [build-base]
+    timeout-minutes: 720
     strategy:
       matrix:
         year: [2017, 2018, 2019, 2020, 2021, 2022, 2023]
@@ -72,6 +73,7 @@ jobs:
   build-latest-image:
     runs-on: [ubuntu-22.04]
     needs: [build-base]
+    timeout-minutes: 720
     strategy:
       matrix:
         year: [2024]
@@ -96,6 +98,7 @@ jobs:
   build-2016-image:
     runs-on: [ubuntu-22.04]
     needs: [build-base]
+    timeout-minutes: 720
     strategy:
       matrix:
         year: [2016]

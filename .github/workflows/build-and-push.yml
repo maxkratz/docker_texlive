@@ -33,6 +33,7 @@ jobs:
   build-and-push-image:
     runs-on: [ubuntu-22.04]
     needs: [build-and-push-base]
+    timeout-minutes: 720
     strategy:
       matrix:
         year: [2017, 2018, 2019, 2020, 2021, 2022]
@@ -60,6 +61,7 @@ jobs:
     # Use a self-hosted runner to circumvent the small storage size of GitHub-hosted runners
     runs-on: [self-hosted]
     needs: [build-and-push-base]
+    timeout-minutes: 720
     strategy:
       matrix:
         year: [2023]
@@ -88,6 +90,7 @@ jobs:
     # Use a self-hosted runner to circumvent the small storage size of GitHub-hosted runners
     runs-on: [self-hosted]
     needs: [build-and-push-base]
+    timeout-minutes: 720
     strategy:
       matrix:
         year: [2024]
@@ -144,6 +147,7 @@ jobs:
   build-and-push-2016-image:
     runs-on: [ubuntu-22.04]
     needs: [build-and-push-base]
+    timeout-minutes: 720
     strategy:
       matrix:
         year: [2016]
