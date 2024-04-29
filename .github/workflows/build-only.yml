@@ -46,6 +46,7 @@ jobs:
           push: false
           tags: maxkratz/texlive:${{ matrix.year }}
           platforms: linux/amd64,linux/arm64,linux/arm/v7
+        timeout-minutes: 720
 
   build-image-variants:
     # Use a self-hosted runner to circumvent the small storage size of GitHub-hosted runners
@@ -93,6 +94,7 @@ jobs:
             maxkratz/texlive:${{ matrix.year }}
             maxkratz/texlive:latest
           platforms: linux/amd64,linux/arm64,linux/arm/v7
+        timeout-minutes: 720
 
   # 2016 can not be built with arm64 support
   build-2016-image:
@@ -116,3 +118,4 @@ jobs:
           push: false
           tags: maxkratz/texlive:${{ matrix.year }}
           platforms: linux/amd64,linux/arm/v7
+        timeout-minutes: 720
