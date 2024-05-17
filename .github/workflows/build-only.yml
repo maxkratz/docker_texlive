@@ -26,9 +26,10 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/arm/v7
 
   build-image:
-    runs-on: [ubuntu-22.04]
+    # Use a self-hosted runner to circumvent 6h timeout
+    runs-on: [self-hosted]
     needs: [build-base]
-    timeout-minutes: 720
+    timeout-minutes: 1440
     strategy:
       matrix:
         year: [2017, 2018, 2019, 2020, 2021, 2022, 2023]
@@ -46,7 +47,7 @@ jobs:
           push: false
           tags: maxkratz/texlive:${{ matrix.year }}
           platforms: linux/amd64,linux/arm64,linux/arm/v7
-        timeout-minutes: 720
+        timeout-minutes: 1440
 
   build-image-variants:
     # Use a self-hosted runner to circumvent the small storage size of GitHub-hosted runners
@@ -72,9 +73,10 @@ jobs:
 
   # latest is an extra build step because of buggy GitHub Actions if conditions
   build-latest-image:
-    runs-on: [ubuntu-22.04]
+    # Use a self-hosted runner to circumvent 6h timeout
+    runs-on: [self-hosted]
     needs: [build-base]
-    timeout-minutes: 720
+    timeout-minutes: 1440
     strategy:
       matrix:
         year: [2024]
@@ -94,13 +96,14 @@ jobs:
             maxkratz/texlive:${{ matrix.year }}
             maxkratz/texlive:latest
           platforms: linux/amd64,linux/arm64,linux/arm/v7
-        timeout-minutes: 720
+        timeout-minutes: 1440
 
   # 2016 can not be built with arm64 support
   build-2016-image:
-    runs-on: [ubuntu-22.04]
+    # Use a self-hosted runner to circumvent 6h timeout
+    runs-on: [self-hosted]
     needs: [build-base]
-    timeout-minutes: 720
+    timeout-minutes: 1440
     strategy:
       matrix:
         year: [2016]
@@ -118,4 +121,4 @@ jobs:
           push: false
           tags: maxkratz/texlive:${{ matrix.year }}
           platforms: linux/amd64,linux/arm/v7
-        timeout-minutes: 720
+        timeout-minutes: 1440
