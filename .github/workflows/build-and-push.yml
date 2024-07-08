@@ -34,7 +34,7 @@ jobs:
     # Use a self-hosted runner to circumvent 6h timeout
     runs-on: [self-hosted]
     needs: [build-and-push-base]
-    timeout-minutes: 1440
+    timeout-minutes: 4320
     strategy:
       matrix:
         year: [2017, 2018, 2019, 2020, 2021, 2022, 2023]
@@ -57,14 +57,14 @@ jobs:
           push: true
           tags: maxkratz/texlive:${{ matrix.year }}
           platforms: linux/amd64,linux/arm64,linux/arm/v7
-        timeout-minutes: 1440
+        timeout-minutes: 4320
 
   # latest is an extra build step because of buggy GitHub Actions if conditions
   build-and-push-latest-image:
     # Use a self-hosted runner to circumvent the small storage size of GitHub-hosted runners
     runs-on: [self-hosted]
     needs: [build-and-push-base]
-    timeout-minutes: 1440
+    timeout-minutes: 4320
     strategy:
       matrix:
         year: [2024]
@@ -89,7 +89,7 @@ jobs:
             maxkratz/texlive:${{ matrix.year }}
             maxkratz/texlive:latest
           platforms: linux/amd64,linux/arm64,linux/arm/v7
-        timeout-minutes: 1440
+        timeout-minutes: 4320
 
   build-and-push-image-variants:
     # Use a self-hosted runner to circumvent the small storage size of GitHub-hosted runners
@@ -146,4 +146,4 @@ jobs:
           push: true
           tags: maxkratz/texlive:${{ matrix.year }}
           platforms: linux/amd64,linux/arm/v7
-        timeout-minutes: 1440
+        timeout-minutes: 4320

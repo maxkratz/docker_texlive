@@ -29,7 +29,7 @@ jobs:
     # Use a self-hosted runner to circumvent 6h timeout
     runs-on: [self-hosted]
     needs: [build-base]
-    timeout-minutes: 1440
+    timeout-minutes: 4320
     strategy:
       matrix:
         year: [2017, 2018, 2019, 2020, 2021, 2022, 2023]
@@ -76,7 +76,7 @@ jobs:
     # Use a self-hosted runner to circumvent 6h timeout
     runs-on: [self-hosted]
     needs: [build-base]
-    timeout-minutes: 1440
+    timeout-minutes: 4320
     strategy:
       matrix:
         year: [2024]
@@ -96,14 +96,14 @@ jobs:
             maxkratz/texlive:${{ matrix.year }}
             maxkratz/texlive:latest
           platforms: linux/amd64,linux/arm64,linux/arm/v7
-        timeout-minutes: 1440
+        timeout-minutes: 4320
 
   # 2016 can not be built with arm64 support
   build-2016-image:
     # Use a self-hosted runner to circumvent 6h timeout
     runs-on: [self-hosted]
     needs: [build-base]
-    timeout-minutes: 1440
+    timeout-minutes: 4320
     strategy:
       matrix:
         year: [2016]
@@ -121,4 +121,4 @@ jobs:
           push: false
           tags: maxkratz/texlive:${{ matrix.year }}
           platforms: linux/amd64,linux/arm/v7
-        timeout-minutes: 1440
+        timeout-minutes: 4320
