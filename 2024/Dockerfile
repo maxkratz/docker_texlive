@@ -4,9 +4,9 @@ LABEL maintainer="Max Kratz <account@maxkratz.com>"
 
 # Install texlive
 COPY texlive.profile .
-RUN wget https://ctan.org/tex-archive/systems/texlive/tlnet/install-tl-unx.tar.gz
+RUN wget http://dante.ctan.org/tex-archive/systems/texlive/tlnet/install-tl-unx.tar.gz
 RUN tar xvzf install-tl-unx.tar.gz
-RUN ./install-tl-*/install-tl -profile texlive.profile -repository https://ctan.org/tex-archive/systems/texlive/tlnet --no-verify-downloads
+RUN ./install-tl-*/install-tl -profile texlive.profile -repository http://dante.ctan.org/tex-archive/systems/texlive/tlnet --no-verify-downloads
 
 # Add texlive to path
 ENV PATH="/usr/local/texlive/2024/bin/x86_64-linux:$PATH"
