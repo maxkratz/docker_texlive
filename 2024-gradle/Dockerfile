@@ -14,8 +14,8 @@ RUN apt-get update -q && \
 RUN wget -q -c https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -P /tmp
 RUN unzip -d /opt/gradle /tmp/gradle-${GRADLE_VERSION}-bin.zip
 RUN rm -f /opt/gradle-${GRADLE_VERSION}-bin.zip
-ENV GRADLE_HOME /opt/gradle/gradle-${GRADLE_VERSION}
-ENV PATH /opt/gradle/gradle-${GRADLE_VERSION}/bin:$PATH
+ENV GRADLE_HOME=/opt/gradle/gradle-${GRADLE_VERSION}
+ENV PATH=/opt/gradle/gradle-${GRADLE_VERSION}/bin:$PATH
 
 # Remove apt lists (for storage efficiency)
 RUN rm -rf /var/lib/apt/lists/*
