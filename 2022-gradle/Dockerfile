@@ -5,10 +5,10 @@ LABEL maintainer="Max Kratz <account@maxkratz.com>"
 # Config
 ARG GRADLE_VERSION=8.10
 
-# Install OpenJDK 17
+# Install OpenJDK 21
 RUN apt-get update -q && \
     apt-get install -yq \
-        openjdk-17-jre-headless
+        openjdk-21-jre-headless
 
 # Install Gradle
 RUN wget -q -c https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -P /tmp
