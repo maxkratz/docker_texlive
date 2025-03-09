@@ -37,7 +37,7 @@ jobs:
     timeout-minutes: 4320
     strategy:
       matrix:
-        year: [2017, 2018, 2019, 2020, 2021, 2022, 2023]
+        year: [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -67,7 +67,7 @@ jobs:
     timeout-minutes: 4320
     strategy:
       matrix:
-        year: [2024]
+        year: [2025]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -97,7 +97,7 @@ jobs:
     needs: [build-and-push-image, build-and-push-latest-image]
     strategy:
       matrix:
-        year: [2022-gradle, 2023-gradle, 2023-python, 2024-gradle, 2024-python]
+        year: [2022-gradle, 2023-gradle, 2023-python, 2024-gradle, 2024-python, 2025-gradle, 2025-python]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
