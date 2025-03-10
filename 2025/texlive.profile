@@ -1,0 +1,10 @@
+selected_scheme scheme-full
+TEXDIR /usr/local/texlive/2025
+TEXMFCONFIG ~/.texlive2025/texmf-config
+TEXMFHOME ~/texmf
+TEXMFLOCAL /usr/local/texlive/texmf-local
+TEXMFSYSCONFIG /usr/local/texlive/2025/texmf-config
+TEXMFSYSVAR /usr/local/texlive/2025/texmf-var
+TEXMFVAR ~/.texlive2025/texmf-var
+option_doc 0
+option_src 0
