@@ -1,6 +1,6 @@
 # texlive 2025 image
 FROM maxkratz/texlive:2025
-LABEL maintainer="Max Kratz <account@maxkratz.com>"
+LABEL maintainer="Max Kratz <github@maxkratz.com>"
 
 # Install Python 3.x
 RUN apt-get update -q && \

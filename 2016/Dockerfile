@@ -1,6 +1,6 @@
 # texlive base image
 FROM maxkratz/texlive:base
-LABEL maintainer="Max Kratz <account@maxkratz.com>"
+LABEL maintainer="Max Kratz <github@maxkratz.com>"
 
 # Install prerequisites
 RUN apt-get update && apt-get install -yq libfontconfig xzdec
