@@ -43,10 +43,10 @@ Currently, there are the following tags published:
 | 2025        | TeX Live version 2025                                      |
 | 2025-gradle | TeX Live version 2025 + OpenJDK 21 + Gradle                |
 | 2025-python | TeX Live version 2025 + Python 3 + pip                     |
-| 2024        | TeX Live version 2024                                      |
+| 2024        | TeX Live version 2024 (from archive)                       |
 | 2024-gradle | TeX Live version 2024 + OpenJDK 21 + Gradle                |
 | 2024-python | TeX Live version 2024 + Python 3 + pip                     |
-| 2023        | TeX Live version 2023                                      |
+| 2023        | TeX Live version 2023 (from archive)                       |
 | 2023-gradle | TeX Live version 2023 + OpenJDK 21 + Gradle                |
 | 2023-python | TeX Live version 2023 + Python 3 + pip                     |
 | 2022        | TeX Live version 2022 (from archive)                       |
@@ -63,7 +63,7 @@ It is used as a base for the other builds and builds on top of the [ubuntu 24.04
 
 
 ## Dockerfiles
-The Dockerfiles can be found at the Github repository sorted in [folders by year](https://github.com/maxkratz/docker_texlive).
+The Dockerfiles can be found at the GitHub repository sorted in [folders by year](https://github.com/maxkratz/docker_texlive).
 
 
 ## What gets installed in this image?
@@ -74,4 +74,4 @@ The following packages are installed in this Docker image:
 
 
 ## Issues & Contribution
-If you find any problems, bugs or missing packages, feel free to open an [issue on Github](https://github.com/maxkratz/docker_texlive/issues).
+If you find any problems, bugs or missing packages, feel free to open an [issue on GitHub](https://github.com/maxkratz/docker_texlive/issues).
