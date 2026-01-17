@@ -3,7 +3,7 @@ FROM maxkratz/texlive:2024
 LABEL maintainer="Max Kratz <github@maxkratz.com>"
 
 # Config
-ARG GRADLE_VERSION=9.2.1
+ARG GRADLE_VERSION=9.3.0
 
 # Install OpenJDK 21
 RUN apt-get update -q && \
