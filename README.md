@@ -43,7 +43,7 @@ Currently, there are the following tags published:
 | 2026        | TeX Live version 2026                                      |
 | 2026-gradle | TeX Live version 2026 + OpenJDK 21 + Gradle                |
 | 2026-python | TeX Live version 2026 + Python 3 + pip                     |
-| 2025        | TeX Live version 2025                                      |
+| 2025        | TeX Live version 2025 (from archive)                       |
 | 2025-gradle | TeX Live version 2025 + OpenJDK 21 + Gradle                |
 | 2025-python | TeX Live version 2025 + Python 3 + pip                     |
 | 2024        | TeX Live version 2024 (from archive)                       |
