@@ -14,7 +14,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
+        uses: docker/setup-qemu-action@v4
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Build base
@@ -37,7 +37,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
+        uses: docker/setup-qemu-action@v4
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Build image
@@ -60,7 +60,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
+        uses: docker/setup-qemu-action@v4
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Build image
@@ -84,7 +84,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
+        uses: docker/setup-qemu-action@v4
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Build latest image
@@ -111,7 +111,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
+        uses: docker/setup-qemu-action@v4
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Build image
