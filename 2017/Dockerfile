@@ -9,9 +9,9 @@ RUN rm -rf /var/lib/apt/lists/*
 
 # Install texlive
 COPY texlive.profile .
-RUN wget https://ftp.tu-chemnitz.de/pub/tug/historic/systems/texlive//2017/install-tl-unx.tar.gz
+RUN wget https://ftp.tu-chemnitz.de/pub/tug/historic/systems/texlive/2017/install-tl-unx.tar.gz
 RUN tar xvzf install-tl-unx.tar.gz
-RUN ./install-tl-*/install-tl -profile texlive.profile -repository https://ftp.tu-chemnitz.de/pub/tug/historic/systems/texlive//2017/tlnet-final/ --no-verify-downloads
+RUN ./install-tl-*/install-tl -profile texlive.profile -repository https://ftp.tu-chemnitz.de/pub/tug/historic/systems/texlive/2017/tlnet-final/ --no-verify-downloads
 
 # Add texlive to path
 ENV PATH="/usr/local/texlive/2017/bin/x86_64-linux:$PATH"
