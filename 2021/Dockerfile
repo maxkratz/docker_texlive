@@ -4,9 +4,9 @@ LABEL maintainer="Max Kratz <github@maxkratz.com>"
 
 # Install texlive
 COPY texlive.profile .
-RUN wget http://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2021/install-tl-unx.tar.gz
+RUN wget https://www.tug.org/historic/systems/texlive/2021/install-tl-unx.tar.gz
 RUN tar xvzf install-tl-unx.tar.gz
-RUN ./install-tl-*/install-tl -profile texlive.profile -repository http://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2021/tlnet-final/ --no-verify-downloads
+RUN ./install-tl-*/install-tl -profile texlive.profile -repository https://www.tug.org/historic/systems/texlive/2021/tlnet-final/ --no-verify-downloads
 
 # Add texlive to path
 ENV PATH="/usr/local/texlive/2021/bin/x86_64-linux:$PATH"
